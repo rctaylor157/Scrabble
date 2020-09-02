@@ -16,6 +16,10 @@ with open('valid_words.txt', 'r') as valid_words:
 print(len(valid_words_list))
 players_scores = {'player1': 0, 'player2': 0, 'player3': 0, 'player4': 0}
 players_letters = {'player1': [], 'player2': [], 'player3': [], 'player4': []}
+triple_word_score_loc = [0, 7, 14, 105, 119, 210, 217, 224]
+double_word_score_loc = [16, 28, 32, 42, 48, 56, 64, 70, 154, 160, 168, 176, 182, 192, 196, 208]
+triple_letter_score_loc = [20, 24, 76, 80, 84, 88,136, 140, 144, 148, 200, 204]
+double_letter_score_loc = [3, 11, 36, 38, 45, 52, 59, 92, 96, 98, 102, 108, 116, 122, 126, 128, 132, 165, 172, 179, 186, 188, 213, 221]
 
 def create_letter_bag():
     letter_bag = []
@@ -76,26 +80,6 @@ def create_letter_bag():
     random.shuffle(letter_bag)
     return letter_bag
 
-def draw_board_test():
-    window = tk.Tk()
-    window.title("Scrabble")
-    for i in range(15):
-        window.columnconfigure(i, weight=1, minsize=25)
-        window.rowconfigure(i, weight=1, minsize=25)
-
-        for j in range(15):
-            frame = tk.Frame(
-                master=window,
-                relief=tk.RAISED,
-                borderwidth=1
-            )
-            frame.grid(row=i, column=j, padx=5, pady=5)
-            label = tk.Label(master=frame, text=f"Row {i}\nColumn {j}")
-            label.pack(padx=5, pady=5)
-            print(label)
-
-    window.mainloop()
-
 def setup_game(players_letters=players_letters, letter_bag=create_letter_bag()):
     for player, letters in players_letters.items():
         for i in range(7):
@@ -105,31 +89,51 @@ def setup_game(players_letters=players_letters, letter_bag=create_letter_bag()):
     print(letter_bag)
 
 def draw_board():
-    window = tk.Tk()
-    window.title("Scrabble")
+    board = tk.Tk()
+    board.title("Scrabble")
     location = 0
     for i in range(15):
-        window.columnconfigure(i, weight=1, minsize=25)
-        window.rowconfigure(i, weight=1, minsize=25)
+        board.columnconfigure(i, weight=1)
+        board.rowconfigure(i, weight=1)
         for j in range(15):
+            if location in triple_word_score_loc:
+                name = 'Triple \n Word \n Score'
+                multiplier_type = 'word'
+                multiplier_value = 3
+            elif location in double_word_score_loc:
+                name = 'Double \n Word \n Score'
+                multiplier_type = 'word'
+                multiplier_value = 2
+            elif location in triple_letter_score_loc:
+                name = 'Triple \n Letter \n Score'
+                multiplier_type = 'letter'
+                multiplier_value = 3
+            elif location in double_letter_score_loc:
+                name = 'Double \n Letter \n Score'
+                multiplier_type = 'letter'
+                multiplier_value = 2
+            elif location == 112:
+                name = 'Center'
+                multiplier_type = 'word'
+                multiplier_value = 2
             square = ScrabbleClass.ScrabbleBoardSquare(
-                master=window,
+                master=board,
                 relief=tk.RAISED,
                 borderwidth=1,
                 location=location
             )
-            square.grid(row=i, column=j, padx=5, pady=5)
-            label = tk.Label(master=square, text=str(location))
-            label.pack(padx=5, pady=5)
+            square.grid(row=i, column=j, padx=1, pady=1)
+            label = tk.Label(master=square, text=name, height=5, width=5)
+            label.pack(padx=1, pady=1)
             location += 1
-    window.mainloop()
+            name = ''
+    board.mainloop()
 
 def score_word(word):
     word_score = 0
     word = word.upper()
     is_valid = False
     for item in valid_words_list:
-        print(item)
         if word == item:
             is_valid = True
             for letter in word:
