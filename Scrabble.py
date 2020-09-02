@@ -14,7 +14,7 @@ with open('valid_words.txt', 'r') as valid_words:
         line = line.strip('\n\t')
         valid_words_list.append(line.upper())
 print(len(valid_words_list))
-players_scores = {'player1': 0, 'player2': 0}
+players_scores = {'player1': 0, 'player2': 0, 'player3': 0, 'player4': 0}
 players_letters = {'player1': [], 'player2': [], 'player3': [], 'player4': []}
 
 def create_letter_bag():
@@ -138,6 +138,4 @@ def score_word(word):
     if is_valid == False:
         return 'Not a valid word!'
 
-
 draw_board()
-print(dir(ScrabbleClass.ScrabbleBoardSquare))
