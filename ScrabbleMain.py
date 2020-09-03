@@ -43,6 +43,8 @@ def start_screen():
 
     main_window.mainloop()
 
+test = 'test'
+
 def player_setup():
     setup_window = tk.Tk()
     setup_window.title("Player Setup")
