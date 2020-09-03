@@ -22,7 +22,7 @@ triple_letter_score_loc = [20, 24, 76, 80, 84, 88,136, 140, 144, 148, 200, 204]
 double_letter_score_loc = [3, 11, 36, 38, 45, 52, 59, 92, 96, 98, 102, 108, 116, 122, 126, 128, 132, 165, 172, 179, 186, 188, 213, 221]
 max_players = 4
 
-def popup(message)
+def popup(message='test'):
     popup_window = tk.Tk()
     popup_frame= tk.Frame(master=popup_window)
     popup_label = tk.Label(master=popup_frame, text=message)
@@ -69,7 +69,7 @@ def player_setup():
             player2_name_entry = tk.Entry(master=setup_frame, width=20)
             player2_name_entry.grid(column=1, row=1, padx=5, pady=5)
             
-            elif number_of_players == 2:
+        elif number_of_players == 2:
                 player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
                 player1_name_label.grid(column=0, row=0)
                 player1_name_entry = tk.Entry(master=setup_frame, width=20)
@@ -80,7 +80,7 @@ def player_setup():
                 player2_name_entry = tk.Entry(master=setup_frame, width=20)
                 player2_name_entry.grid(column=1, row=1, padx=5, pady=5)
 
-            elif number_of_players == 3:
+        elif number_of_players == 3:
                 player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
                 player1_name_label.grid(column=0, row=0)
                 player1_name_entry = tk.Entry(master=setup_frame, width=20)
@@ -96,7 +96,7 @@ def player_setup():
                 player3_name_entry = tk.Entry(master=setup_frame, width=20)
                 player3_name_entry.grid(column=1, row=1, padx=5, pady=5)
 
-            elif number_of_players == 4:
+        elif number_of_players == 4:
                 player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
                 player1_name_label.grid(column=0, row=0)
                 player1_name_entry = tk.Entry(master=setup_frame, width=20)
