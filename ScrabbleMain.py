@@ -13,7 +13,6 @@ with open('valid_words.txt', 'r') as valid_words:
     for line in valid_words.readlines():
         line = line.strip('\n\t')
         valid_words_list.append(line.upper())
-print(len(valid_words_list))
 players_scores = {'player1': 0, 'player2': 0, 'player3': 0, 'player4': 0}
 players_letters = {'player1': [], 'player2': [], 'player3': [], 'player4': []}
 triple_word_score_loc = [0, 7, 14, 105, 119, 210, 217, 224]
@@ -22,13 +21,16 @@ triple_letter_score_loc = [20, 24, 76, 80, 84, 88,136, 140, 144, 148, 200, 204]
 double_letter_score_loc = [3, 11, 36, 38, 45, 52, 59, 92, 96, 98, 102, 108, 116, 122, 126, 128, 132, 165, 172, 179, 186, 188, 213, 221]
 max_players = 4
 
-def popup(message='test'):
+def popup(message=''):
     popup_window = tk.Tk()
-    popup_frame= tk.Frame(master=popup_window)
-    popup_label = tk.Label(master=popup_frame, text=message)
+    popup_window.title('Error')
+    popup_label = tk.Label(master=popup_window, text=message)
+    popup_label.pack()
+    popup_window.mainloop()
 
 def start_screen():
     main_window = tk.Tk()
+
     main_window.title("Scrabble Menu")
     main_window.geometry('300x100')
 
@@ -46,14 +48,17 @@ def start_screen():
 def player_setup():
     setup_window = tk.Tk()
     setup_window.title("Player Setup")
-    setup_window.geometry('300x100')
+    setup_window.geometry('300x150')
 
     def retrieve_number_of_players(number_of_players=0):
         number_of_players = number_players.get()
-        number_players_label.destroy()
-        number_players.destroy()
-        number_of_players_confirm.destroy()
-        player_naming(int(number_of_players))
+        if int(number_of_players) <= 4:
+            number_players_label.destroy()
+            number_players.destroy()
+            number_of_players_confirm.destroy()
+            player_naming(int(number_of_players))
+        else:
+            popup('Please enter a number 1-4!')
 
     def player_naming(number_of_players):
         print(number_of_players)
@@ -70,58 +75,61 @@ def player_setup():
             player2_name_entry.grid(column=1, row=1, padx=5, pady=5)
             
         elif number_of_players == 2:
-                player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
-                player1_name_label.grid(column=0, row=0)
-                player1_name_entry = tk.Entry(master=setup_frame, width=20)
-                player1_name_entry.grid(column=1, row=0, padx=5, pady=5)
+            player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
+            player1_name_label.grid(column=0, row=0)
+            player1_name_entry = tk.Entry(master=setup_frame, width=20)
+            player1_name_entry.grid(column=1, row=0, padx=5, pady=5)
 
-                player2_name_label = tk.Label(master=setup_frame, text='Player 2 Name:')
-                player2_name_label.grid(column=0, row=1)                
-                player2_name_entry = tk.Entry(master=setup_frame, width=20)
-                player2_name_entry.grid(column=1, row=1, padx=5, pady=5)
+            player2_name_label = tk.Label(master=setup_frame, text='Player 2 Name:')
+            player2_name_label.grid(column=0, row=1)                
+            player2_name_entry = tk.Entry(master=setup_frame, width=20)
+            player2_name_entry.grid(column=1, row=1, padx=5, pady=5)
 
         elif number_of_players == 3:
-                player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
-                player1_name_label.grid(column=0, row=0)
-                player1_name_entry = tk.Entry(master=setup_frame, width=20)
-                player1_name_entry.grid(column=1, row=0, padx=5, pady=5)
+            player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
+            player1_name_label.grid(column=0, row=0)
+            player1_name_entry = tk.Entry(master=setup_frame, width=20)
+            player1_name_entry.grid(column=1, row=0, padx=5, pady=5)
 
-                player2_name_label = tk.Label(master=setup_frame, text='Player 2 Name:')
-                player2_name_label.grid(column=0, row=1)                
-                player2_name_entry = tk.Entry(master=setup_frame, width=20)
-                player2_name_entry.grid(column=1, row=1, padx=5, pady=5)
+            player2_name_label = tk.Label(master=setup_frame, text='Player 2 Name:')
+            player2_name_label.grid(column=0, row=1)                
+            player2_name_entry = tk.Entry(master=setup_frame, width=20)
+            player2_name_entry.grid(column=1, row=1, padx=5, pady=5)
 
-                player3_name_label = tk.Label(master=setup_frame, text='Player 3 Name:')
-                player3_name_label.grid(column=0, row=1)                
-                player3_name_entry = tk.Entry(master=setup_frame, width=20)
-                player3_name_entry.grid(column=1, row=1, padx=5, pady=5)
+            player3_name_label = tk.Label(master=setup_frame, text='Player 3 Name:')
+            player3_name_label.grid(column=0, row=2)                
+            player3_name_entry = tk.Entry(master=setup_frame, width=20)
+            player3_name_entry.grid(column=1, row=2, padx=5, pady=5)
 
         elif number_of_players == 4:
-                player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
-                player1_name_label.grid(column=0, row=0)
-                player1_name_entry = tk.Entry(master=setup_frame, width=20)
-                player1_name_entry.grid(column=1, row=0, padx=5, pady=5)
+            player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
+            player1_name_label.grid(column=0, row=0)
+            player1_name_entry = tk.Entry(master=setup_frame, width=20)
+            player1_name_entry.grid(column=1, row=0, padx=5, pady=5)
 
-                player2_name_label = tk.Label(master=setup_frame, text='Player 2 Name:')
-                player2_name_label.grid(column=0, row=1)                
-                player2_name_entry = tk.Entry(master=setup_frame, width=20)
-                player2_name_entry.grid(column=1, row=1, padx=5, pady=5)   
+            player2_name_label = tk.Label(master=setup_frame, text='Player 2 Name:')
+            player2_name_label.grid(column=0, row=1)                
+            player2_name_entry = tk.Entry(master=setup_frame, width=20)
+            player2_name_entry.grid(column=1, row=1, padx=5, pady=5)   
 
-                player3_name_label = tk.Label(master=setup_frame, text='Player 3 Name:')
-                player3_name_label.grid(column=0, row=1)                
-                player3_name_entry = tk.Entry(master=setup_frame, width=20)
-                player3_name_entry.grid(column=1, row=1, padx=5, pady=5)
+            player3_name_label = tk.Label(master=setup_frame, text='Player 3 Name:')
+            player3_name_label.grid(column=0, row=2)                
+            player3_name_entry = tk.Entry(master=setup_frame, width=20)
+            player3_name_entry.grid(column=1, row=2, padx=5, pady=5)
 
-                player4_name_label = tk.Label(master=setup_frame, text='Player 4 Name:')
-                player4_name_label.grid(column=0, row=1)                
-                player4_name_entry = tk.Entry(master=setup_frame, width=20)
-                player4_name_entry.grid(column=1, row=1, padx=5, pady=5)  
+            player4_name_label = tk.Label(master=setup_frame, text='Player 4 Name:')
+            player4_name_label.grid(column=0, row=3)                
+            player4_name_entry = tk.Entry(master=setup_frame, width=20)
+            player4_name_entry.grid(column=1, row=3, padx=5, pady=5)
 
-        player_names_confirm = tk.Button(master=setup_frame, text='Confirm')
-        player_names_confirm.pack(side='bottom')
+        player_names_confirm = tk.Button(master=confirm_frame, text='Confirm')
+        confirm_frame.pack()
+        player_names_confirm.pack()
 
     setup_frame = tk.Frame(master=setup_window)
     setup_frame.pack()
+
+    confirm_frame = tk.Frame(master=setup_window)
 
     number_players_label = tk.Label(master=setup_frame, text='How many players?')
     number_players_label.pack(padx=5, pady=5)
