@@ -1,6 +1,6 @@
 import tkinter as tk
 import random
-import Scrabble
+from Scrabble import *
 
 # create Scrabble set
 letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -19,13 +19,13 @@ triple_word_score_loc = [0, 7, 14, 105, 119, 210, 217, 224]
 double_word_score_loc = [16, 28, 32, 42, 48, 56, 64, 70, 154, 160, 168, 176, 182, 192, 196, 208]
 triple_letter_score_loc = [20, 24, 76, 80, 84, 88,136, 140, 144, 148, 200, 204]
 double_letter_score_loc = [3, 11, 36, 38, 45, 52, 59, 92, 96, 98, 102, 108, 116, 122, 126, 128, 132, 165, 172, 179, 186, 188, 213, 221]
-max_players = 4
 
 def popup(message=''):
     popup_window = tk.Tk()
     popup_window.title('Error')
     popup_label = tk.Label(master=popup_window, text=message)
     popup_label.pack()
+
     popup_window.mainloop()
 
 def start_screen():
@@ -38,17 +38,24 @@ def start_screen():
     main_frame.pack()
 
     main_menu = tk.Menu(master=main_frame)
-    main_menu.add_command(label='New Game', command=player_setup)
+    main_menu.add_command(label='New Game', command=setup_game)
     main_menu.add_command(label='Close', command=main_window.destroy)
 
     main_window.config(menu=main_menu)
 
     main_window.mainloop()
 
-def player_setup():
+def setup_game():
     setup_window = tk.Tk()
     setup_window.title("Player Setup")
     setup_window.geometry('300x150')
+    create_letter_bag()
+
+    def assign_letters(player=ScrabblePlayer, letter_bag=letter_bag):
+        player.letters = []
+        for i in range(7):
+            player.letters.append(letter_bag.pop(0))
+        return player.letters
 
     def retrieve_number_of_players(number_of_players=0):
         number_of_players = number_players.get()
@@ -61,7 +68,43 @@ def player_setup():
             popup('Please enter a number 1-4!')
 
     def player_naming(number_of_players):
-        print(number_of_players)
+        def create_players():
+            if number_of_players == 1:
+                player1 = ScrabblePlayer(player1_name_entry.get())
+                player1.letters = assign_letters(player1)
+
+                player2 = ScrabblePlayer(player2_name_entry.get())
+                player2.letters = assign_letters(player2)
+
+            elif number_of_players == 2:
+                player1 = ScrabblePlayer(player1_name_entry.get())
+                player1.letters = assign_letters(player1)
+
+                player2 = ScrabblePlayer(player2_name_entry.get())
+                player2.letters = assign_letters(player2)
+
+            elif number_of_players == 3:
+                player1 = ScrabblePlayer(player1_name_entry.get())
+                player1.letters = assign_letters(player1)
+
+                player2 = ScrabblePlayer(player2_name_entry.get())
+                player2.letters = assign_letters(player2)
+
+                player3 = ScrabblePlayer(player3_name_entry.get())
+                player3.letters = assign_letters(player3)
+
+            elif number_of_players == 4:
+                player1 = ScrabblePlayer(player1_name_entry.get())
+                player1.letters = assign_letters(player1)
+
+                player2 = ScrabblePlayer(player2_name_entry.get())
+                player2.letters = assign_letters(player2)
+
+                player3 = ScrabblePlayer(player3_name_entry.get())
+                player3.letters = assign_letters(player3)
+
+                player4 = ScrabblePlayer(player4_name_entry.get())
+                player4.letters = assign_letters(player4)
 
         if number_of_players == 1:
             player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
@@ -121,10 +164,11 @@ def player_setup():
             player4_name_label.grid(column=0, row=3)                
             player4_name_entry = tk.Entry(master=setup_frame, width=20)
             player4_name_entry.grid(column=1, row=3, padx=5, pady=5)
-
-        player_names_confirm = tk.Button(master=confirm_frame, text='Confirm')
+        
+        player_names_confirm = tk.Button(master=confirm_frame, text='Confirm', command=create_players)
         confirm_frame.pack()
         player_names_confirm.pack()
+            
 
     setup_frame = tk.Frame(master=setup_window)
     setup_frame.pack()
@@ -142,10 +186,7 @@ def player_setup():
 
     
 
-    
-
 def create_letter_bag():
-    letter_bag = []
     # 1-point letters
     for i in range(12):
         letter_bag.append("E")
@@ -202,14 +243,6 @@ def create_letter_bag():
         letter_bag.append("")
     random.shuffle(letter_bag)
     return letter_bag
-
-def setup_game(players_letters=players_letters, letter_bag=create_letter_bag()):
-    for player, letters in players_letters.items():
-        for i in range(7):
-            letters.append(letter_bag.pop(0))
-    print(players_letters)
-    print(len(letter_bag))
-    print(letter_bag)
 
 def draw_board():
     board = tk.Tk()

@@ -17,6 +17,10 @@ class ScrabbleBoardSquare(tk.Frame):
         pass
 
 class ScrabblePlayer():
-    def __init__(self, player_name, score=0):
-        self.player_name = player_name
+    def __init__(self, name, score=0, letters=[]):
+        self.player_name = name
         self.score = score
+        self.letters = letters
+    
+    def __repr__(self):
+        return self.player_name
