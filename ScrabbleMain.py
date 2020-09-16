@@ -19,6 +19,7 @@ triple_word_score_loc = [0, 7, 14, 105, 119, 210, 217, 224]
 double_word_score_loc = [16, 28, 32, 42, 48, 56, 64, 70, 154, 160, 168, 176, 182, 192, 196, 208]
 triple_letter_score_loc = [20, 24, 76, 80, 84, 88,136, 140, 144, 148, 200, 204]
 double_letter_score_loc = [3, 11, 36, 38, 45, 52, 59, 92, 96, 98, 102, 108, 116, 122, 126, 128, 132, 165, 172, 179, 186, 188, 213, 221]
+rules = '1. Each player has 7 tiles'
 
 def popup(message=''):
     popup_window = tk.Tk()
@@ -68,6 +69,7 @@ def setup_game():
             popup('Please enter a number 1-4!')
 
     def player_naming(number_of_players):
+
         def create_players():
             if number_of_players == 1:
                 player1 = ScrabblePlayer(player1_name_entry.get())
@@ -86,6 +88,8 @@ def setup_game():
             elif number_of_players == 3:
                 player1 = ScrabblePlayer(player1_name_entry.get())
                 player1.letters = assign_letters(player1)
+                print(player1)
+                print(player1.letters)
 
                 player2 = ScrabblePlayer(player2_name_entry.get())
                 player2.letters = assign_letters(player2)
@@ -167,8 +171,7 @@ def setup_game():
         
         player_names_confirm = tk.Button(master=confirm_frame, text='Confirm', command=create_players)
         confirm_frame.pack()
-        player_names_confirm.pack()
-            
+        player_names_confirm.pack()      
 
     setup_frame = tk.Frame(master=setup_window)
     setup_frame.pack()
@@ -182,9 +185,7 @@ def setup_game():
     number_players.pack()
 
     number_of_players_confirm = tk.Button(master=setup_frame, text='Confirm', command=retrieve_number_of_players)
-    number_of_players_confirm.pack(padx=5, pady=5)
-
-    
+    number_of_players_confirm.pack(padx=5, pady=5)   
 
 def create_letter_bag():
     # 1-point letters
@@ -284,6 +285,20 @@ def draw_board():
             location += 1
             name = ''
     board.mainloop()
+
+def player_letters_display():
+    letters_display = tk.Tk()
+    letters_display.title("Letters")
+    active_player = player1
+    for i in range(7):
+        letters_display.columnconfigure(i, weight=1)
+        letters_display.rowconfigure(1, weight=1)
+        frame = Frame.Tk(master=letters_display)
+        letter_tile = Label.Tk(master=frame, text=active_player.letter[i])
+    
+    letters_display.mainloop()
+
+
 
 def score_word(word):
     word_score = 0

@@ -24,3 +24,10 @@ class ScrabblePlayer():
     
     def __repr__(self):
         return self.player_name
+
+    def show_player_info(score, letters):
+        player_window = Tk()
+        player_frame = Tk.Frame(master=player_window)
+
+
+        player_window.mainloop()
