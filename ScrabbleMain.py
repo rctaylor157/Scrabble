@@ -69,7 +69,6 @@ def setup_game():
             popup('Please enter a number 1-4!')
 
     def player_naming(number_of_players):
-
         def create_players():
             if number_of_players == 1:
                 player1 = ScrabblePlayer(player1_name_entry.get())
@@ -78,12 +77,16 @@ def setup_game():
                 player2 = ScrabblePlayer(player2_name_entry.get())
                 player2.letters = assign_letters(player2)
 
+                setup_window.destroy()
+
             elif number_of_players == 2:
                 player1 = ScrabblePlayer(player1_name_entry.get())
                 player1.letters = assign_letters(player1)
 
                 player2 = ScrabblePlayer(player2_name_entry.get())
                 player2.letters = assign_letters(player2)
+
+                setup_window.destroy()
 
             elif number_of_players == 3:
                 player1 = ScrabblePlayer(player1_name_entry.get())
@@ -97,6 +100,8 @@ def setup_game():
                 player3 = ScrabblePlayer(player3_name_entry.get())
                 player3.letters = assign_letters(player3)
 
+                setup_window.destroy()
+
             elif number_of_players == 4:
                 player1 = ScrabblePlayer(player1_name_entry.get())
                 player1.letters = assign_letters(player1)
@@ -109,6 +114,8 @@ def setup_game():
 
                 player4 = ScrabblePlayer(player4_name_entry.get())
                 player4.letters = assign_letters(player4)
+
+                setup_window.destroy()
 
         if number_of_players == 1:
             player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
@@ -185,7 +192,7 @@ def setup_game():
     number_players.pack()
 
     number_of_players_confirm = tk.Button(master=setup_frame, text='Confirm', command=retrieve_number_of_players)
-    number_of_players_confirm.pack(padx=5, pady=5)   
+    number_of_players_confirm.pack(padx=5, pady=5)
 
 def create_letter_bag():
     # 1-point letters
