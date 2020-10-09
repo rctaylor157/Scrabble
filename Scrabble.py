@@ -29,5 +29,4 @@ class ScrabblePlayer():
         player_window = Tk()
         player_frame = Tk.Frame(master=player_window)
 
-
         player_window.mainloop()
