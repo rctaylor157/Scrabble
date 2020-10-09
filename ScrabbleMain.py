@@ -1,6 +1,8 @@
 import tkinter as tk
 import random
 from Scrabble import *
+import Scrabble
+import ScrabbleGame
 
 # create Scrabble set
 letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -78,6 +80,7 @@ def setup_game():
                 player2.letters = assign_letters(player2)
 
                 setup_window.destroy()
+                draw_board()
 
             elif number_of_players == 2:
                 player1 = ScrabblePlayer(player1_name_entry.get())
@@ -87,6 +90,7 @@ def setup_game():
                 player2.letters = assign_letters(player2)
 
                 setup_window.destroy()
+                draw_board()
 
             elif number_of_players == 3:
                 player1 = ScrabblePlayer(player1_name_entry.get())
@@ -101,6 +105,7 @@ def setup_game():
                 player3.letters = assign_letters(player3)
 
                 setup_window.destroy()
+                draw_board()
 
             elif number_of_players == 4:
                 player1 = ScrabblePlayer(player1_name_entry.get())
@@ -116,6 +121,7 @@ def setup_game():
                 player4.letters = assign_letters(player4)
 
                 setup_window.destroy()
+                draw_board()
 
         if number_of_players == 1:
             player1_name_label = tk.Label(master=setup_frame, text='Player 1 Name:')
@@ -292,32 +298,6 @@ def draw_board():
             location += 1
             name = ''
     board.mainloop()
-
-def player_letters_display():
-    letters_display = tk.Tk()
-    letters_display.title("Letters")
-    active_player = player1
-    for i in range(7):
-        letters_display.columnconfigure(i, weight=1)
-        letters_display.rowconfigure(1, weight=1)
-        frame = Frame.Tk(master=letters_display)
-        letter_tile = Label.Tk(master=frame, text=active_player.letter[i])
-    
-    letters_display.mainloop()
-
-
-
-def score_word(word):
-    word_score = 0
-    word = word.upper()
-    is_valid = False
-    for item in valid_words_list:
-        if word == item:
-            is_valid = True
-            for letter in word:
-                word_score += letters_to_points.get(letter, 0)
-            return word_score
-    if is_valid == False:
-        return 'Not a valid word!'
+    scrabble_play()
 
 start_screen()
