@@ -1,8 +1,6 @@
 import tkinter as tk
 import random
-from Scrabble import *
 import Scrabble
-import ScrabbleGame
 
 # create Scrabble set
 letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -298,6 +296,6 @@ def draw_board():
             location += 1
             name = ''
     board.mainloop()
-    scrabble_play()
+    game = ScrabbleGame()
 
 start_screen()
